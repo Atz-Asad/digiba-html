@@ -77,3 +77,34 @@
 }
 
 
+
+
+.magic-cursor {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: var(--bs-primary);
+    border-radius: 50%;
+    pointer-events: none; /* So the cursor doesn't interfere with other elements */
+    transition: transform 0.15s ease, background-color 0.15s ease, width 0.15s ease, height 0.15s ease;
+    z-index: 9999; /* Ensure it is on top of other elements */
+}
+
+.magic-cursor::after {
+    position: absolute;
+    content: '';
+    width: 35px;
+    height: 35px;
+    border: 1px solid var(--bs-primary);
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    transition: width 0.15s ease, height 0.15s ease; /* Smooth transition for size changes */
+}
+
+.magic-cursor.hovered::after {
+    width: 50px; /* Size when hovering over the button */
+    height: 50px; /* Size when hovering over the button */
+}
