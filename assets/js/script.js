@@ -41,10 +41,60 @@
         });
     }
 
+    /////////////////////////////////////////////////////
+    // // 20. Register GSAP
+    gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
+    // /////////////////////////////////////////////////////
+
+
+    /////////////////////////////////////////////////////
+    // 21. Config GSAP
+    gsap.config({
+        nullTargetWarn: false,
+    });
+    // /////////////////////////////////////////////////////
 
     
+    let splitTitleLines = gsap.utils.toArray(".title-anim");
 
+    splitTitleLines.forEach(splitTextLine => {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: splitTextLine,
+          start: 'top 90%',
+          end: 'bottom 60%',
+          scrub: false,
+          markers: true,
+          rotationX: 180,
+          toggleActions: 'play none none none'
+        }
+      });
 
+      const itemSplitted = new SplitText(splitTextLine, { type: "words, chars" });
+      gsap.set(splitTextLine, { perspective: 400 });
+      itemSplitted.split({ type: "chars" })
+      tl.from(itemSplitted.chars, { duration: 0.4, duration: 0.8, opacity: 0, x: 50, stagger: { amount: 0.9 }, });
+    });
+
+    // function textAnimate(sliderElement) {
+    //     const textsToAnimate = sliderElement.querySelectorAll(".title-anim");
+    //     textsToAnimate.forEach(textToAnimate => {
+    //         const animate = new SplitType(textToAnimate, { types: 'words , chars' });
+    //         gsap.from(animate.chars, {
+    //             opacity: 0,
+    //             x: 100,
+    //             duration: 1.1,
+    //             stagger: { amount: 0.9 },
+    //             scrollTrigger: {
+    //                 trigger: textToAnimate,
+    //                 start: "top 95%",
+    //                 markers: true,
+    //             }
+    //         });
+    //     })
+    // };
+
+    // textAnimate(document);
 
 })(jQuery);
 
