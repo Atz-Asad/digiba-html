@@ -12,33 +12,46 @@
         const cursor = document.querySelector('.magic-cursor');
         const hoverTargets = document.querySelectorAll('.hover-target');
         let mouseX = 0, mouseY = 0, cursorX = 0, cursorY = 0;
-    
+
         document.addEventListener('mousemove', function(e) {
-            mouseX = e.pageX;
-            mouseY = e.pageY;
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            // Get the viewport width and height
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+            const cursorWidth = cursor.offsetWidth / 2;
+            const cursorHeight = cursor.offsetHeight / 2;
+
+            // Constrain the cursor within the viewport
+            if (mouseX < cursorWidth) mouseX = cursorWidth;
+            if (mouseX > windowWidth - cursorWidth) mouseX = windowWidth - cursorWidth;
+            if (mouseY < cursorHeight) mouseY = cursorHeight;
+            if (mouseY > windowHeight - cursorHeight) mouseY = windowHeight - cursorHeight;
         });
-    
+
         function animateCursor() {
             cursorX += (mouseX - cursorX) * 0.1; // Adjust the 0.1 value to control the smoothness
             cursorY += (mouseY - cursorY) * 0.1;
-            
+
             cursor.style.left = cursorX + 'px';
             cursor.style.top = cursorY + 'px';
-            
+
             requestAnimationFrame(animateCursor);
         }
-    
+
         animateCursor();
-    
+
         hoverTargets.forEach(target => {
             target.addEventListener('mouseenter', () => {
                 cursor.classList.add('hovered');
             });
-    
+
             target.addEventListener('mouseleave', () => {
                 cursor.classList.remove('hovered');
             });
         });
+
     }
 
     /////////////////////////////////////////////////////

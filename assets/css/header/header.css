@@ -77,10 +77,10 @@
 }
 
 
-
+/* magic-cursor */
 
 .magic-cursor {
-    position: absolute;
+    position: fixed;
     width: 8px;
     height: 8px;
     background-color: var(--bs-primary);
@@ -88,23 +88,27 @@
     pointer-events: none; /* So the cursor doesn't interfere with other elements */
     transition: transform 0.15s ease, background-color 0.15s ease, width 0.15s ease, height 0.15s ease;
     z-index: 9999; /* Ensure it is on top of other elements */
+    transform: translate(-50%, -50%); /* Center the cursor */
 }
 
 .magic-cursor::after {
     position: absolute;
     content: '';
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
     border: 1px solid var(--bs-primary);
     border-radius: 50%;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     pointer-events: none;
-    transition: width 0.15s ease, height 0.15s ease; /* Smooth transition for size changes */
+    transition: width 0.15s ease, height 0.15s ease, background 0.15s ease;
+    background: rgba(var(--bs-primary-rgb), 0.2); /* Ensure partial transparency */
 }
 
 .magic-cursor.hovered::after {
     width: 50px; /* Size when hovering over the button */
     height: 50px; /* Size when hovering over the button */
+    border: 1px solid var(--bs-primary);
+    background: rgba(var(--bs-primary-rgb), 0.5); /* Ensure partial transparency */
 }
